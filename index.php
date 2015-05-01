@@ -326,7 +326,7 @@
 
     $(function(){
 
-        //Exibe Todos os registros na tabela veiculos cadastrados
+        //Exibe Todos os registros na tabela veiculos cadastrados;
         $.ajax({
             url: "includes/tables/tbl_todos.php",
             success: function(data){

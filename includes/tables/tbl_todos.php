@@ -83,7 +83,7 @@ foreach($todos as $row):
             // Função para trocar o titulo do modal
             $("."+modalId).attr("title", "Veículo - "+name+" - "+placa);
             // Função para trocar o titulo do modal gerado automaticamente do select
-            $(".ui-dialog-title").text("Veículo - "+name+" - "+placa);
+            $("#"+selectId).closest(".ui-dialog-title").text("Veículo - "+name+" - "+placa);
 
             // Função para abrir o modal no click do select
             $("."+modalId).dialog({autoOpen: false,

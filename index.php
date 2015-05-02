@@ -1,7 +1,7 @@
 <?php
- include "includes/header.php";
+include "includes/header.php";
 
- ?>
+?>
 
 
 <div class="content" >
@@ -319,7 +319,7 @@
 
 <!-- Modal Relatórios -->
 <?php
-    include "includes/modals.php";
+include "includes/modals.php";
 ?>
 
 <script>
@@ -424,6 +424,36 @@
             }});
 
         $("#"+idName).dialog('open')
+        return false;
+    }
+
+    function openModalSub(id)
+    {
+        var inicio = id.lastIndexOf('_');
+        var idName = id.substr(0, inicio);
+
+        var modalId     = $("#"+id).closest(".vEdit").attr("id")
+        var mInicio     = modalId.lastIndexOf('_');
+        var numeroModal = modalId.split("_").pop();
+        var modalName   = idName.split("Servicos");
+
+        // Função para trocar o modal id que está no modal gerado automaticamente do select
+        $(".servicosSubModal").attr("id", idName+"_"+numeroModal );
+
+        $("#"+idName+"_"+numeroModal).dialog({autoOpen: false,
+            modal: true,
+            width: 600,
+            buttons: {
+                "Visualizar": function() {
+                    $( this ).dialog( "close" );
+                },
+                Cancelar: function() {
+                    $("#"+id).removeClass('active');
+                    $( this ).dialog( "close" );
+                }
+            }});
+
+        $("#"+idName+"_"+numeroModal).dialog('open')
         return false;
     }
 

@@ -53,4 +53,12 @@ class Model {
         $rows = $query->fetchAll(PDO::FETCH_OBJ);
         return $rows;
     }
+
+    public function frota_servico($id_admin)
+    {
+        $pdo = $this->pdo();
+        $query =  $pdo->query("select * from frota_servicos WHERE id_admin = $id_admin");
+        $rows = $query->fetchAll(PDO::FETCH_OBJ);
+        return $rows;
+    }
 }

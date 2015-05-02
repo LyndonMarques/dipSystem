@@ -18,7 +18,7 @@ foreach($todos as $row):
         <td>Nome da Frota</td>
 
         <td class="TAC">
-            <select id="<?php echo $row->cliente?>">
+            <select id="<?php echo $row->cliente?>" name="<?php echo $row->name?>" placa="<?php echo $row->placa?>">
                 <option> Selecione...</option>
                 <option value="vEdit"> Edit</option>
                 <option value="vInfoBasicas">  info. Básicas</option>
@@ -42,20 +42,48 @@ foreach($todos as $row):
 
         $("select").change(function(){
 
-            var modalId = $(this).val();
+            var modalId  = $(this).val();
             var selectId = $(this).attr("id");
-            var width = 550;
+            var name     = $(this).attr("name");
+            var placa    = $(this).attr("placa");
+            var width    = 550;
 
             if(modalId == "vEdit"){
                 var width = 1000;
             }
 
+            //Preenche Modal com conteudo referente ao Id do Cliente
+            $.ajax({
+                url: "includes/ajax/vEditServicos.php",
+                type: "post",
+                data: "id_user="+selectId,
+                dataType: "json",
+                success: function(data){
+
+                    if(data.length != 0){
+                        $("#tS1").html(data[0].fornecedor);
+                        $("#tS2").html(data[0].tipo_servico);
+                        $("#tS3").html(data[0].data);
+                        $("#tS4").html(data[0].os);
+                        $("#tS5").html(data[0].odometro);
+                        $("#tS6").html(data[0].total);
+                    }else{
+                        $("#tS1").html('-');
+                        $("#tS2").html('-');
+                        $("#tS3").html('-');
+                        $("#tS4").html('-');
+                        $("#tS5").html('-');
+                        $("#tS6").html('-');
+                    }
+
+                }
+            })
             // Função para trocar o modal id que está no modal gerado automaticamente do select
             $(".ui-dialog-content").attr("id", modalId+"_"+selectId );
             // Função para trocar o titulo do modal
-            $("."+modalId).attr("title", selectId);
+            $("."+modalId).attr("title", "Veículo - "+name+" - "+placa);
             // Função para trocar o titulo do modal gerado automaticamente do select
-            $(".ui-dialog-title").text(selectId);
+            $(".ui-dialog-title").text("Veículo - "+name+" - "+placa);
 
             // Função para abrir o modal no click do select
             $("."+modalId).dialog({autoOpen: false,
@@ -71,17 +99,6 @@ foreach($todos as $row):
                 }});
 
             $("."+modalId).dialog('open');
-
-            //Preenche Model com conteudo referente ao Id do Cliente
-            // Função ajax para enviar dados que preencherão o modal.
-            $.ajax({
-                url: "includes/modalSelect/selectEdit.php",
-                type: "get",
-                success: function(data){
-                    $("div[id^=vEdit]").html(data)
-                }
-
-            });
 
         });
     });

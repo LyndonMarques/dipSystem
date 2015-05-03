@@ -2526,7 +2526,7 @@
                                 <th width="10%">Valor Total</th>
                             </tr>
                             </thead>
-                            <tbody id="tbody_servicos">
+                            <tbody id="tbody_servicos1">
                             <tr>
                                 <td id="tS1">-</td>
                                 <td id="tS2">-</td>
@@ -3408,21 +3408,23 @@
             <div id="tabs-1" aria-labelledby="ui-id-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
 
                 <div class="row-fluid">
-                    <div class="block-fluid">
+                    <form id="formServicosSubAdd" method="post" class="block-fluid formulario">
+                        <input type="hidden" name="servicosId" id="servicosId" value="">
                         <div class="row-form">
                             <div class="span8">
                                 <span class="top title">Fornecedor: *</span>
-                                <select>
-                                    <option>testes</option>
+                                <select name="sevicosFornecedor" id="sevicosFornecedor">
+                                    <option >1</option>
+                                    <option >2</option>
                                 </select>
                             </div>
                             <div class="span1">
                                 <span class="top title"> &nbsp;</span>
-                                <button class="btn btn-small"><span class="icon-plus"></span></button>
+                                <div class="btn btn-small"><span class="icon-plus"></span></div>
                             </div>
                             <div class="span3">
                                 <span class="top title">Numéro OS:</span>
-                                <input type="text" name="fname" value=""/>
+                                <input type="text" id="servicosOs" name="servicosOs" value=""/>
                             </div>
 
                         </div>
@@ -3430,91 +3432,77 @@
                         <div class="row-form">
                             <div class="span9">
                                 <span class="top title">Tipo de Serviços: *</span>
-                                <select>
-                                    <option>testes</option>
+                                <select name="servicosTipoServi" id="servicosTipoServi">
+                                    <option>1</option>
+                                    <option>2</option>
                                 </select>
                             </div>
 
                             <div class="span3">
                                 <span class="top title">Data: *</span>
-                                <input type="text" name="fname" value=""/>
+                                <input type="text" name="servicosData" id="servicosData" class="datePicker" placeholder="dd/mm/aaaa"/>
                             </div>
                         </div>
 
                         <div class="row-form">
                             <div class="span6">
                                 <span class="top title">Cód. Identificador do Serviço:</span>
-                                <input type="text" name="fname" value=""/>
+                                <input type="text" name="servicosCodIndentServ" id="servicosCodIndentServ" value=""/>
                             </div>
 
                             <div class="span6">
                                 <span class="top title">Odometro: *</span>
-                                <input type="text" name="fname" value=""/>
+                                <input type="text" name="servicosOdometro" id="servicosOdometro" value=""/>
                             </div>
                         </div>
 
                         <div class="row-form">
                             <div class="span12">
                                 <span class="top title">Observaçoes</span>
-                                <textarea></textarea>
+                                <textarea name="servicosObs" id="servicosObs"></textarea>
                             </div>
-
                         </div>
+                    </form>
 
-                    </div>
                 </div>
-
             </div>
 
             <div id="tabs-2" aria-labelledby="ui-id-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="true" aria-hidden="false" style="display: block;">
 
                 <div class="row-fluid">
                     <div class="block-fluid">
-                        <div class="row-form">
-                            <div class="span6">
-                                <span class="top title">Descrição do Veículo:</span>
-                                <input type="text" name="fname" value=""/>
-                            </div>
-                            <div class="span6">
-                                <span class="top title"> &nbsp;</span>
-                                <button class="btn btn-small" style="width: 100%">Pesquisar Itens</button>
-                            </div>
-                        </div>
-
-                        <div class="row-form">
-                            <div class="span12">
-
-                                <select name="pgm_example" multiple="multiple" id="tItem">
-                                    <option value="0">choose a option...</option>
-                                    <option value="1">Andorra</option>
-                                    <option value="2">Antarctica</option>
-                                    <option value="3">Bulgaria</option>
-                                    <option value="4">Germany</option>
-                                    <option value="5" selected="selected">Dominican Republic</option>
-                                    <option value="6">Micronesia</option>
-                                    <option value="7">United Kingdom</option>
-                                    <option value="8">Greece</option>
-                                    <option value="9">Italy</option>
-                                    <option value="10" selected="selected">Ukraine</option>
-                                </select>
-                                <div class="btn-group">
-                                    <button class="btn btn-mini btn-primary" id="tItem_select">Selecionar Tudo</button>
-                                    <button class="btn btn-mini btn-primary" id="tItem_deselect">Desselecionar Tudo</button>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="btn-group" data-toggle="buttons-radio">
+                                    <button id="vEditServicosAddEdit_btn" onclick="" type="button" class="btn btn-default"><span class="icon-plus"></span> Adicionar</button>
+                                    <button type="button" class="btn btn-default"><span class="icon-edit"></span> Editar</button>
+                                    <button type="button" class="btn btn-default"><span class="icon-remove"></span> Desativar</button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row-form">
-                            <div class="span12">
-                                <center><button class="btn btn-small" style="width: 40%">Salvar Itens</button></center>
-                            </div>
-                        </div>
+                        <table class="table table-hover" cellpadding="0" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th width="30%">Item</th>
+                                <th width="10%">Valor Unitário</th>
+                                <th width="5%">Quantidade</th>
+                                <th width="5%">Valor Total</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody_servicos">
+                            <tr>
+                                <td id="tS1">-</td>
+                                <td id="tS2">-</td>
+                                <td id="tS3">-</td>
+                                <td id="tS4">-</td>
+                            </tr>
 
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>

@@ -433,19 +433,35 @@ include "includes/modals.php";
         var idName = id.substr(0, inicio);
 
         var modalId     = $("#"+id).closest(".vEdit").attr("id")
-        var mInicio     = modalId.lastIndexOf('_');
         var numeroModal = modalId.split("_").pop();
-        var modalName   = idName.split("Servicos");
+        var idAdmin     = numeroModal.split("_").pop()
 
         // Função para trocar o modal id que está no modal gerado automaticamente do select
-        $(".servicosSubModal").attr("id", idName+"_"+numeroModal );
+        $(".servicosSubModal").attr("id", idName+"_"+numeroModal)
+
+        alert(modalId)
+        $("#servicosId").attr('value', 1313);
 
         $("#"+idName+"_"+numeroModal).dialog({autoOpen: false,
             modal: true,
             width: 600,
             buttons: {
-                "Visualizar": function() {
-                    $( this ).dialog( "close" );
+                "Salvar": function() {
+                    $.ajax({
+                        url: "includes/ajax/servicosAdd.php",
+                        type: "post",
+                        data: $("#formServicosSubAdd").serialize(),
+                        success: function(data){
+                            if(data == 1){
+                                alert("Serviço salvo com sucesso!");
+                                resetar();
+                                preencheModal(1313)
+                                $(".servicosSubModal").dialog("close");
+                            }else{
+                                alert("Nao foi possivel salvar o servisso!");
+                            }
+                        }
+                    })
                 },
                 Cancelar: function() {
                     $("#"+id).removeClass('active');
@@ -455,6 +471,18 @@ include "includes/modals.php";
 
         $("#"+idName+"_"+numeroModal).dialog('open')
         return false;
+    }
+
+    function  resetar()
+    {
+        $("#sevicosFornecedor").val("");
+        $("#servicosOs").val("");
+        $("#servicosTipoServi").val("");
+        $("#servicosData").val("");
+        $("#servicosCodIndentServ").val("");
+        $("#servicosOdometro").val("");
+        $("#servicosObs").val("");
+
     }
 
     $("#logout").click(function(){
@@ -515,7 +543,8 @@ include "includes/modals.php";
     $(function(){
 
         $("#tableFrota").dataTable();
-        $("#placa").click()
+        //$("#placa").click()
+        $(".datePicker").datepicker({ dateFormat: 'yy-mm-dd' })
     })
 </script>
 

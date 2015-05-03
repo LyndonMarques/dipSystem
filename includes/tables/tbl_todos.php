@@ -48,36 +48,21 @@ foreach($todos as $row):
             var placa    = $(this).attr("placa");
             var width    = 550;
 
+            var novoSelectId = ""+modalId+"_"+selectId+"";
+
             if(modalId == "vEdit"){
-                var width = 1000;
+                width = 1000;
             }
 
-            //Preenche Modal com conteudo referente ao Id do Cliente
-            $.ajax({
-                url: "includes/ajax/vEditServicos.php",
-                type: "post",
-                data: "id_user="+selectId,
-                dataType: "json",
-                success: function(data){
+            if($("."+modalId).attr('id') == modalId){
+                $("#"+modalId).attr("id", novoSelectId)
+            }else{
 
-                    if(data.length != 0){
-                        $("#tS1").html(data[0].fornecedor);
-                        $("#tS2").html(data[0].tipo_servico);
-                        $("#tS3").html(data[0].data);
-                        $("#tS4").html(data[0].os);
-                        $("#tS5").html(data[0].odometro);
-                        $("#tS6").html(data[0].total);
-                    }else{
-                        $("#tS1").html('-');
-                        $("#tS2").html('-');
-                        $("#tS3").html('-');
-                        $("#tS4").html('-');
-                        $("#tS5").html('-');
-                        $("#tS6").html('-');
-                    }
+            }
+            preencheModal(selectId);
 
-                }
-            })
+            //alert($("#"+novoSelectId).attr("id"))
+
             // Função para trocar o modal id que está no modal gerado automaticamente do select
             $(".ui-dialog-content").attr("id", modalId+"_"+selectId );
             // Função para trocar o titulo do modal
@@ -85,6 +70,7 @@ foreach($todos as $row):
             // Função para trocar o titulo do modal gerado automaticamente do select
             $("#"+selectId).closest(".ui-dialog-title").text("Veículo - "+name+" - "+placa);
 
+            $("#servicosSubAdd").attr("value", selectId)
             // Função para abrir o modal no click do select
             $("."+modalId).dialog({autoOpen: false,
                 modal: true,
@@ -102,6 +88,52 @@ foreach($todos as $row):
 
         });
     });
+
+    function preencheModal(selectId)
+    {
+        //Criar session IdAd$.ajax({
+
+        //Preenche Modal com conteudo referente ao Id do Cliente
+        $.ajax({
+            url: "includes/ajax/vEditServicos.php",
+            type: "post",
+            data: "id_user="+selectId,
+            dataType: "json",
+            success: function(data){
+
+                if(data.length != 0){
+                    $("#tbody_servicos1 tr").remove();
+                    for(var i=0;i<data.length;i++){
+                        var tds =
+                            '<tr>'+
+                            '<td>'+data[i].fornecedor+'</td>'+
+                            '<td>'+data[i].tipo_servico+'</td>'+
+                            '<td>'+data[i].data+'</td>'+
+                            '<td>'+data[i].os+'</td>'+
+                            '<td>'+data[i].odometro+'</td>'+
+                            '<td>'+data[i].total+'</td>'+
+                            '</tr>';
+                        $(tds).appendTo("#tbody_servicos1")
+                    }
+
+                }else{
+                    $("#tbody_servicos1 tr").remove();
+                    var tds =
+                        '<tr>'+
+                        '<td>-</td>'+
+                        '<td>-</td>'+
+                        '<td>-</td>'+
+                        '<td>-</td>'+
+                        '<td>-</td>'+
+                        '<td>-</td>'+
+                        '</tr>';
+                    $(tds).appendTo("#tbody_servicos1")
+                }
+
+            }
+        })
+    }
+
 
 
 </script>

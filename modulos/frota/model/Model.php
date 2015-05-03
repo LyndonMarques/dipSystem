@@ -61,4 +61,13 @@ class Model {
         $rows = $query->fetchAll(PDO::FETCH_OBJ);
         return $rows;
     }
+
+    public function servicosAdd($servicosId,$sevicosFornecedor,$servicosTipoServi,$servicosData,
+                                $servicosOs,$servicosOdometro,$servicosObs,$servicosCodIndentServ)
+    {
+        $pdo = $this->pdo();
+    $query =  $pdo->query("insert INTO frota_servicos(fornecedor, tipo_servico, data, os, odometro, observacoes, id_admin, codIdentServ)".
+                          "VALUES('$sevicosFornecedor', '$servicosTipoServi', '$servicosData', '$servicosOs', '$servicosOdometro', '$servicosObs', '$servicosId', '$servicosCodIndentServ')");
+        return $query;
+    }
 }

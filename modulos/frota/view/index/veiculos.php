@@ -72,7 +72,7 @@
                         <td>Nome da Frota</td>
 
                         <td class="TAC">
-                            <select>
+                            <select class="selectIndex">
                                 <option> Selecione...</option>
                                 <option value="vEdit"> Edit</option>
                                 <option value="vInfoBasicas">  info. Básicas</option>

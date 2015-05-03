@@ -18,7 +18,7 @@ foreach($todos as $row):
         <td>Nome da Frota</td>
 
         <td class="TAC">
-            <select id="<?php echo $row->cliente?>" name="<?php echo $row->name?>" placa="<?php echo $row->placa?>">
+            <select class="teste" id="<?php echo $row->cliente?>" name="<?php echo $row->name?>" placa="<?php echo $row->placa?>">
                 <option> Selecione...</option>
                 <option value="vEdit"> Edit</option>
                 <option value="vInfoBasicas">  info. Básicas</option>
@@ -40,7 +40,7 @@ foreach($todos as $row):
     //Chamada de modais no select
     $(function() {
 
-        $("select").change(function(){
+        $("select.teste").change(function(){
 
             var modalId  = $(this).val();
             var selectId = $(this).attr("id");
@@ -59,9 +59,8 @@ foreach($todos as $row):
             }else{
 
             }
+            //Função para carregar os dados na tabela do modal Vedit
             preencheModal(selectId);
-
-            //alert($("#"+novoSelectId).attr("id"))
 
             // Função para trocar o modal id que está no modal gerado automaticamente do select
             $(".ui-dialog-content").attr("id", modalId+"_"+selectId );

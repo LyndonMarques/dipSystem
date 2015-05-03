@@ -439,8 +439,8 @@ include "includes/modals.php";
         // Função para trocar o modal id que está no modal gerado automaticamente do select
         $(".servicosSubModal").attr("id", idName+"_"+numeroModal)
 
-        alert(modalId)
-        $("#servicosId").attr('value', 1313);
+        alert(idAdmin)
+        $("#servicosId").attr('value', idAdmin);
 
         $("#"+idName+"_"+numeroModal).dialog({autoOpen: false,
             modal: true,
@@ -455,7 +455,7 @@ include "includes/modals.php";
                             if(data == 1){
                                 alert("Serviço salvo com sucesso!");
                                 resetar();
-                                preencheModal(1313)
+                                preencheModal(idAdmin)
                                 $(".servicosSubModal").dialog("close");
                             }else{
                                 alert("Nao foi possivel salvar o servisso!");

@@ -38,47 +38,6 @@ foreach($todos as $row):
 <script>
 
     //Chamada de modais no select
-    $(function() {
-
-        $("select").change(function(){
-
-            var modalId = $(this).val();
-            var selectId = $(this).attr("id");
-            var width = 550;
-
-            if(modalId == "vEdit"){
-                var width = 1000;
-            }
-
-            // Função para trocar o modal id que está no modal gerado automaticamente do select
-            $(".ui-dialog-content").attr("id", modalId+"_"+selectId );
-            // Função para trocar o titulo do modal
-            $("."+modalId).attr("title", selectId);
-            // Função para trocar o titulo do modal gerado automaticamente do select
-            $(".ui-dialog-title").text(selectId);
-
-            // Função ajax para enviar dados que preencherão o modal
-            $.ajax({
-
-
-            });
-
-            // Função para abrir o modal no click do select
-            $("."+modalId).dialog({autoOpen: false,
-                modal: true,
-                width: width,
-                buttons: {
-                    "Salvar": function() {
-                        $( this ).dialog( "close" );
-                    },
-                    Cancelar: function() {
-                        $( this ).dialog( "close" );
-                    }
-                }});
-
-            $("."+modalId).dialog('open');
-        });
-    });
 
 
 </script>

@@ -439,7 +439,6 @@ include "includes/modals.php";
         // Função para trocar o modal id que está no modal gerado automaticamente do select
         $(".servicosSubModal").attr("id", idName+"_"+numeroModal)
 
-        alert(idAdmin)
         $("#servicosId").attr('value', idAdmin);
 
         $("#"+idName+"_"+numeroModal).dialog({autoOpen: false,
@@ -452,6 +451,7 @@ include "includes/modals.php";
                         type: "post",
                         data: $("#formServicosSubAdd").serialize(),
                         success: function(data){
+
                             if(data == 1){
                                 alert("Serviço salvo com sucesso!");
                                 resetar();
@@ -483,6 +483,12 @@ include "includes/modals.php";
         $("#servicosOdometro").val("");
         $("#servicosObs").val("");
 
+    }
+
+    function delService(id)
+    {
+        var checkDel = $("#"+id).attr("checkDel");
+        alert(checkDel)
     }
 
     $("#logout").click(function(){

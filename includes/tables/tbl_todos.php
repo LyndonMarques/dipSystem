@@ -18,7 +18,7 @@ foreach($todos as $row):
         <td>Nome da Frota</td>
 
         <td class="TAC">
-            <select class="teste" id="<?php echo $row->cliente?>" name="<?php echo $row->name?>" placa="<?php echo $row->placa?>">
+            <select class="todos" id="<?php echo $row->cliente?>" name="<?php echo $row->name?>" placa="<?php echo $row->placa?>">
                 <option> Selecione...</option>
                 <option value="vEdit"> Edit</option>
                 <option value="vInfoBasicas">  info. Básicas</option>
@@ -40,7 +40,7 @@ foreach($todos as $row):
     //Chamada de modais no select
     $(function() {
 
-        $("select.teste").change(function(){
+        $("select.todos").change(function(){
 
             var modalId  = $(this).val();
             var selectId = $(this).attr("id");
@@ -59,6 +59,7 @@ foreach($todos as $row):
             }else{
 
             }
+
             //Função para carregar os dados na tabela do modal Vedit
             preencheModal(selectId);
 
@@ -88,6 +89,17 @@ foreach($todos as $row):
         });
     });
 
+    //função para checklist
+    function checklist(id)
+    {
+        $(".checklist").each(function(){
+            $(".checklist:not(#"+id+")").attr("checked", false);
+        })
+
+        $("#vEditServicosDel_btn").attr("checkDel", id)
+        return false;
+    }
+
     function preencheModal(selectId)
     {
         //Criar session IdAd$.ajax({
@@ -105,6 +117,7 @@ foreach($todos as $row):
                     for(var i=0;i<data.length;i++){
                         var tds =
                             '<tr>'+
+                            "<td><input type='checkbox' class='checklist' onclick='checklist(id)' id='"+data[i].id+"' style='position: relative;left: 20px'></td>"+
                             '<td>'+data[i].fornecedor+'</td>'+
                             '<td>'+data[i].tipo_servico+'</td>'+
                             '<td>'+data[i].data+'</td>'+
@@ -125,6 +138,7 @@ foreach($todos as $row):
                         '<td>-</td>'+
                         '<td>-</td>'+
                         '<td>-</td>'+
+                        '<td>-</td>'+
                         '</tr>';
                     $(tds).appendTo("#tbody_servicos1")
                 }
@@ -133,6 +147,28 @@ foreach($todos as $row):
         })
     }
 
+    function formFornecedorAdd()
+    {
 
+        if($("#sevicosFornecedor").val() == ""){
+            alert("Campo Fornecedor obrigarório!")
+            return false;
+        }
+
+        if($("#servicosTipoServi").val() == ""){
+            alert("Campo Tipo de Serviços obrigarório!")
+            return false;
+        }
+
+        if($("#servicosData").val() == ""){
+            alert("Campo Data obrigarório!")
+            return false;
+        }
+
+        if($("#servicosOdometro").val() == ""){
+            alert("Campo Odometro obrigarório!")
+            return false;
+        }
+    }
 
 </script>

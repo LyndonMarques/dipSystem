@@ -2510,7 +2510,7 @@
                                 <div class="btn-group" data-toggle="buttons-radio">
                                     <button id="vEditServicosAdd_btn" onclick="openModalSub(id)" type="button" class="btn btn-default"><span class="icon-plus"></span> Adicionar</button>
                                     <button type="button" class="btn btn-default"><span class="icon-edit"></span> Editar</button>
-                                    <button type="button" class="btn btn-default"><span class="icon-remove"></span> Desativar</button>
+                                    <button id="vEditServicosDel_btn" onclick="delService(id)" type="button" class="btn btn-default"><span class="icon-remove"></span> Desativar</button>
                                 </div>
                             </div>
                         </div>
@@ -2518,22 +2518,24 @@
                         <table class="table table-hover" cellpadding="0" cellspacing="0" width="100%">
                             <thead>
                             <tr>
+                                <th width="1%"></th>
                                 <th width="30%">Fornecedor</th>
-                                <th width="10%">Tipo de Serviço</th>
+                                <th width="20%">Tipo de Serviço</th>
                                 <th width="5%">Data</th>
                                 <th width="5%">OS</th>
-                                <th width="10%">Odometro</th>
-                                <th width="10%">Valor Total</th>
+                                <th width="20%">Odometro</th>
+                                <th width="20%">Valor Total</th>
                             </tr>
                             </thead>
                             <tbody id="tbody_servicos1">
                             <tr>
-                                <td id="tS1">-</td>
-                                <td id="tS2">-</td>
-                                <td id="tS3">-</td>
-                                <td id="tS4">-</td>
-                                <td id="tS5">-</td>
-                                <td id="tS6">-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
                             </tr>
 
                             </tbody>

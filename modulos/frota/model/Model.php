@@ -70,4 +70,26 @@ class Model {
                           "VALUES('$sevicosFornecedor', '$servicosTipoServi', '$servicosData', '$servicosOs', '$servicosOdometro', '$servicosObs', '$servicosId', '$servicosCodIndentServ')");
         return $query;
     }
+
+    public function delServicos($id)
+    {
+        $pdo = $this->pdo();
+        $query =  $pdo->query("DELETE FROM frota_servicos WHERE id = $id");
+        return $query;
+    }
+
+    public function editServicos($id)
+    {
+        $pdo = $this->pdo();
+        $query =  $pdo->query(
+        "UPDATE frota_servicos SET".
+        "fornecedor = 'fornecedor',tipo_servico = 'tipo_servico',DATA = 'data',os = 'os',".
+        "odometro = 'odometro',observacoes = 'observacoes',id_admin = 'id_admin',codIdentServ = 'codIdentServ' ".
+        "WHERE id = '$id' ");
+
+        return $query;
+    }
+
+
+
 }

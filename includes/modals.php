@@ -2508,9 +2508,9 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <div class="btn-group" data-toggle="buttons-radio">
-                                    <button id="vEditServicosAdd_btn" onclick="openModalSub(id)" type="button" class="btn btn-default"><span class="icon-plus"></span> Adicionar</button>
-                                    <button type="button" class="btn btn-default"><span class="icon-edit"></span> Editar</button>
-                                    <button id="vEditServicosDel_btn" onclick="delService(id)" type="button" class="btn btn-default"><span class="icon-remove"></span> Desativar</button>
+                                    <button id="vEditServicosAdd_btn"  onclick="openModalSub(id)" type="button" class="btn btn-default"><span class="icon-plus"></span> Adicionar</button>
+                                    <button id="vEditServicosEdit_btn" onclick="editModalSub(id, 'vEdit')" type="button" class="btn btn-default"><span class="icon-edit"></span> Editar</button>
+                                    <button id="vEditServicosDel_btn"  onclick="delModalSub(id, 'vEdit')" type="button" class="btn btn-default"><span class="icon-remove"></span> Desativar</button>
                                 </div>
                             </div>
                         </div>

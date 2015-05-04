@@ -453,10 +453,10 @@ include "includes/modals.php";
                         success: function(data){
 
                             if(data == 1){
-                                alert("Serviço salvo com sucesso!");
                                 resetar();
                                 preencheModal(idAdmin)
                                 $(".servicosSubModal").dialog("close");
+                                alert("Serviço salvo com sucesso!");
                             }else{
                                 alert("Nao foi possivel salvar o servisso!");
                             }
@@ -485,10 +485,81 @@ include "includes/modals.php";
 
     }
 
-    function delService(id)
+    //função para checklist
+    function checklist(id)
     {
-        var checkDel = $("#"+id).attr("checkDel");
-        alert(checkDel)
+        $(".checklist").each(function(){
+            $(".checklist:not(#"+id+")").attr("checked", false);
+        })
+
+        $("#vEditServicosDel_btn").attr("checkId", id)
+        return false;
+    }
+
+    function delModalSub(id, modalNome)
+    {
+        var checkDel = $("#"+id).attr("checkId");
+        var idAdmin  = $("#"+id).closest("."+modalNome).attr("id");
+        var idAdmin     = idAdmin.split("_").pop();
+
+        var txt;
+        var r = confirm("Deseja deletar este registro?");
+        if (r == true) {
+            txt = "Sim";
+
+            $.ajax({
+                url: "modulos/frota/functions/delServicos.php?id="+checkDel,
+                type: "post",
+                data: "id="+checkDel,
+                success: function(data){
+
+                    if(data == 1){
+                        $("#vEditServicosDel_btn").removeClass("active");
+                        preencheModal(idAdmin);
+                        alert("Registro removido com sucesso!")
+                    }else{
+                        alert("Registro não pode ser removido!")
+                    }
+
+                }
+            });
+
+        } else {
+            txt = "Não";
+        }
+
+    }
+
+    function editModalSub(id, modalNome)
+    {
+        var checkDel = $("#"+id).attr("checkId");
+        var idAdmin  = $("#"+id).closest("."+modalNome).attr("id");
+        var idAdmin     = idAdmin.split("_").pop();
+
+        var txt;
+        var r = confirm("Deseja alterar este registro?");
+        if (r == true) {
+            txt = "Sim";
+
+            $.ajax({
+                url: "modulos/frota/functions/editServicos.php?id="+checkDel,
+                type: "post",
+                data: "id="+checkDel,
+                success: function(data){
+
+                    if(data == 1){
+                        $("#vEditServicosEdit_btn").removeClass("active");
+                        preencheModal(idAdmin);
+                        alert("Registro alterado com sucesso!")
+                    }else{
+                        alert("Registro não pode ser alterado!")
+                    }
+                }
+            });
+
+        } else {
+            txt = "Não";
+        }
     }
 
     $("#logout").click(function(){

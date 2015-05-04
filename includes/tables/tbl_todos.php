@@ -89,17 +89,6 @@ foreach($todos as $row):
         });
     });
 
-    //função para checklist
-    function checklist(id)
-    {
-        $(".checklist").each(function(){
-            $(".checklist:not(#"+id+")").attr("checked", false);
-        })
-
-        $("#vEditServicosDel_btn").attr("checkDel", id)
-        return false;
-    }
-
     function preencheModal(selectId)
     {
         //Criar session IdAd$.ajax({

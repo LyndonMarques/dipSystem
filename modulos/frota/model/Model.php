@@ -99,11 +99,19 @@ class Model {
         return $query;
     }
 
-    public function fornecedorAdd($fname, $fcnpj, $fcodExterno, $ftelefone, $fendereco, $fbairro, $fcidade, $fuf)
+    public function fornecedorById($idAdmin)
     {
         $pdo = $this->pdo();
-        $query =  $pdo->query("insert into fornecedor_frota(nome, cnpj, cod_externo, telefone, endereco, bairro, cidade, uf)".
-        "values('$fname', '$fcnpj', '$fcodExterno', '$ftelefone', '$fendereco', '$fbairro', '$fcidade', '$fuf') ");
+        $query =  $pdo->query("select * from fornecedor_frota where idAdmin = $idAdmin");
+        $rows = $query->fetchAll(PDO::FETCH_OBJ);
+        return $rows;
+    }
+
+    public function fornecedorAdd($fname, $fcnpj, $fcodExterno, $ftelefone, $fendereco, $fbairro, $fcidade, $fuf,$idAdmin)
+    {
+        $pdo = $this->pdo();
+        $query =  $pdo->query("insert into fornecedor_frota(nome, cnpj, cod_externo, telefone, endereco, bairro, cidade, uf, idAdmin)".
+        "values('$fname', '$fcnpj', '$fcodExterno', '$ftelefone', '$fendereco', '$fbairro', '$fcidade', '$fuf', '$idAdmin') ");
         return $query;
     }
 

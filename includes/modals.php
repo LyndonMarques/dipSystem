@@ -3416,8 +3416,7 @@
                             <div class="span8">
                                 <span class="top title">Fornecedor: *</span>
                                 <select name="sevicosFornecedor" id="sevicosFornecedor">
-                                    <option >1</option>
-                                    <option >2</option>
+
                                 </select>
                             </div>
                             <div class="span1">
@@ -3526,6 +3525,8 @@
             <div id="tabs-1" aria-labelledby="ui-id-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
 
                 <form class="formulario_fornecedor" >
+
+                    <input type="hidden" name="fidAdmin" id="fidAdmin" value="">
 
                     <div class="row-form">
                         <div class="span12">

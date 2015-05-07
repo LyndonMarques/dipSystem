@@ -14,8 +14,9 @@ function salvaFornecedor(){
     $fbairro          = filter_var($_POST['fbairro'], FILTER_SANITIZE_STRING);
     $fcidade          = filter_var($_POST['fcidade'], FILTER_SANITIZE_STRING);
     $fuf              = filter_var($_POST['fuf'], FILTER_SANITIZE_STRING);
+    $idAdmin          = filter_var($_POST['fidAdmin'], FILTER_SANITIZE_STRING);
 
-    $frota_servico         = $pdo->fornecedorAdd($fname, $fcnpj, $fcodExterno, $ftelefone, $fendereco, $fbairro, $fcidade, $fuf);
+    $frota_servico         = $pdo->fornecedorAdd($fname, $fcnpj, $fcodExterno, $ftelefone, $fendereco, $fbairro, $fcidade, $fuf, $idAdmin);
 
     if($frota_servico){
         return 1;

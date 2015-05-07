@@ -436,6 +436,7 @@ include "includes/modals.php";
         var numeroModal = modalId.split("_").pop();
         var idAdmin     = numeroModal.split("_").pop();
 
+        selectFornecedores(idAdmin);
         if(id == "vEditServicosEdit_btn"){
             var checkid = $("#"+id).attr("checkid");
 
@@ -616,6 +617,7 @@ include "includes/modals.php";
 
                     var fnome = $("#fname").val();
                     var fcnpj = $("#fcnpj").val();
+                    var idAdmin = $("#fidAdmin").val();
                     if(fnome == "" || fcnpj == ""){
                         alert("Preencha os campos obrigatórios!");
                         return false;
@@ -629,6 +631,7 @@ include "includes/modals.php";
 
                                 if (data == 1) {
                                     alert("Fornecedor salvo com sucesso!");
+                                    selectFornecedores(idAdmin)
                                     $(this).dialog("close");
                                 } else {
                                     alert("Preencha os campos obrigatórios!");
@@ -648,6 +651,30 @@ include "includes/modals.php";
 
     $(".addFornecedor").dialog('open');
 
+
+    }
+
+    function selectFornecedores(idAdmin)
+    {
+        $("#fidAdmin").attr("value", idAdmin);
+        $.ajax({
+            url: "modulos/frota/functions/selectFornecedor.php",
+            type: "post",
+            data: "fidAdmin="+idAdmin,
+            dataType: "json",
+            success: function(data){
+
+                $("#sevicosFornecedor option").remove();
+                for(var i=0; i<data.length;i++){
+
+                    var fornecedor =
+                        "<option></option>"+
+                        "<option>"+data[i].nome+"</option>";
+                    $(fornecedor).appendTo("#sevicosFornecedor");
+                }
+            }
+
+        })
 
     }
     //função para checklist

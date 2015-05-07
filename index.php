@@ -639,7 +639,6 @@ include "includes/modals.php";
                                 }
                             }
                         });
-
                     }
                 $( this ).dialog( "close" );
             },
@@ -657,6 +656,7 @@ include "includes/modals.php";
     function selectFornecedores(idAdmin)
     {
         $("#fidAdmin").attr("value", idAdmin);
+        var fname = $("#fname").val();
         $.ajax({
             url: "modulos/frota/functions/selectFornecedor.php",
             type: "post",
@@ -665,17 +665,15 @@ include "includes/modals.php";
             success: function(data){
 
                 $("#sevicosFornecedor option").remove();
+
                 for(var i=0; i<data.length;i++){
 
                     var fornecedor =
-                        "<option></option>"+
                         "<option>"+data[i].nome+"</option>";
                     $(fornecedor).appendTo("#sevicosFornecedor");
                 }
             }
-
         })
-
     }
     //função para checklist
     function checklist(id)

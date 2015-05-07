@@ -3421,7 +3421,7 @@
                             </div>
                             <div class="span1">
                                 <span class="top title"> &nbsp;</span>
-                                <div class="btn btn-small" onclick="addFornecedor()"><span class="icon-plus"></span></div>
+                                <div id="idFornecedor" class="btn btn-small fornecedor" onclick="addFornecedor(id)"><span class="icon-plus"></span></div>
                             </div>
                             <div class="span3">
                                 <span class="top title">Numéro OS:</span>

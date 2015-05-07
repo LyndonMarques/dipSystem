@@ -101,6 +101,7 @@ $pdo = new Model();
     <script type='text/javascript' src='js/plugins.js'></script>
     <script type='text/javascript' src='js/charts.js'></script>
     <script type='text/javascript' src='js/actions.js'></script>
+    <script type='text/javascript' src='js/plugins/jquery.number.js'></script>
 
 </head>
 

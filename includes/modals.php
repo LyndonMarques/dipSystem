@@ -3434,6 +3434,7 @@
                             <div class="span9">
                                 <span class="top title">Tipo de Serviços: *</span>
                                 <select name="servicosTipoServi" id="servicosTipoServi">
+                                    <option></option>
                                     <option>1</option>
                                     <option>2</option>
                                 </select>
@@ -3475,7 +3476,7 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <div class="btn-group" data-toggle="buttons-radio">
-                                    <button id="vEditServicosAddEdit_btn" onclick="" type="button" class="btn btn-default"><span class="icon-plus"></span> Adicionar</button>
+                                    <button id="vEditServicosAddEdit_btn" onclick="addItensServico(id)" type="button" class="btn btn-default"><span class="icon-plus"></span> Adicionar</button>
                                     <button type="button" class="btn btn-default"><span class="icon-edit"></span> Editar</button>
                                     <button type="button" class="btn btn-default"><span class="icon-remove"></span> Desativar</button>
                                 </div>
@@ -3485,18 +3486,20 @@
                         <table class="table table-hover" cellpadding="0" cellspacing="0" width="100%">
                             <thead>
                             <tr>
+                                <th width="1%"></th>
                                 <th width="30%">Item</th>
                                 <th width="10%">Valor Unitário</th>
                                 <th width="5%">Quantidade</th>
                                 <th width="5%">Valor Total</th>
                             </tr>
                             </thead>
-                            <tbody id="tbody_servicos">
+                            <tbody id="tbody_itemServicos">
                             <tr>
-                                <td id="tS1">-</td>
-                                <td id="tS2">-</td>
-                                <td id="tS3">-</td>
-                                <td id="tS4">-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
                             </tr>
 
                             </tbody>
@@ -3508,12 +3511,9 @@
     </div>
 </div>
 
-
-<!-- Modal ExcessoVelocidade-->
 <div class="dialog-fluid addFornecedor"  style="display: none;" title="Fornecedor">
 
     <div class="row-fluid">
-
 
         <div class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
             <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
@@ -3680,24 +3680,115 @@
                     </tbody>
                 </table>
             </div>
-
-
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
 
 </div>
-<!-- Modal ExcessoVelocidade-->
+
+<div class="dialog-fluid addItemServico"  style="display: none;" title="Itens do Serviço">
+
+    <div class="row-fluid">
+        <form class="formulario_itemfornecedor" >
+
+            <input type="hidden" name="IidAdmin" id="IidAdmin" value="">
+
+            <div class="row-form">
+                <div class="span11">
+                    <span class="top title ">Item:*</span>
+                    <select id="IitemServico" name="IitemServico" >
+                        <option>1</option>
+                    </select>
+                </div>
+
+                <div class="span1">
+                    <span class="top title">&nbsp; </span>
+                    <div id="idItemServico" class="btn btn-small fornecedor" onclick="addItem(id)">
+                        <span class="icon-plus"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row-form">
+                <div class="span12">
+                    <span class="top title ">Valor Unitário:*</span>
+                    <input class="label-warning groupOfTexbox" type="text" id="Iunitario" name="Iunitario" value="0,00" required/>
+                </div>
+
+            </div>
+
+            <div class="row-form">
+                <div class="span6">
+                    <span class="top title">Quantidade:</span>
+                    <input class="groupOfTexbox2" type="text" name="Iquantidade" id="Iquantidade" value="0"/>
+                </div>
+
+                <div class="span6">
+                    <span class="top title">Total:</span>
+                    <input class="groupOfTexbox" readonly type="text" name="Itotal" id="Itotal" value=""/>
+                </div>
+
+            </div>
+
+            <div class="row-form">
+                <div class="span6">
+                    <span class="top title">Durabilidade:</span>
+                    <select name="Idurabilidade" id="Idurabilidade">
+                        <option>Em dias</option>
+                        <option>Em Km</option>
+                    </select>
+                </div>
+
+                <div class="span6">
+                    <span class="top title">Dias:</span>
+                    <input class="groupOfTexbox2" type="text" name="Idias" id="Idias" value=""/>
+                </div>
+
+            </div>
+
+            <div class="row-form">
+                <div class="span12">
+                    <span class="top title">Lembrar:</span>
+                    <input class="groupOfTexbox2" type="text" name="Ilembrar" id="Ilembrar" value="" placeholder="Dias antes de vencer"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="dialog-fluid addItem"  style="display: none;" title="Item">
+
+    <div class="row-fluid">
+        <form class="formulario_fornecedor" >
+
+            <input type="hidden" name="fidAdmin" id="fidAdmin" value="">
+
+            <div class="row-form">
+                <div class="span12">
+                    <span class="top title ">Item:*</span>
+                    <input class="label-warning" type="text" id="Iitem" name="Iitem" value="" required/>
+                </div>
+
+            </div>
+
+            <div class="row-form">
+                <div class="span12">
+                    <span class="top title ">Código:</span>
+                    <input class="label-warning" type="text" id="Icodigo" name="Iunitario" value="" required/>
+                </div>
+            </div>
+
+            <div class="row-form">
+                <div class="span12">
+                    <span class="top title">Fabricante:</span>
+                    <input type="text" name="fendereco" id="Ifabricante" value=""/>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
 </div>
 <!-- Suv Modal vEdit -->

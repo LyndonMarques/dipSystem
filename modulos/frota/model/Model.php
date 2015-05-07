@@ -94,6 +94,15 @@ class Model {
         return $query;
     }
 
+    public function addItemServico($IitemServico,$Iunitario,$Iquantidade,$Itotal,$Idurabilidade,$Idias,$Ilembrar,$IidAdmin)
+    {
+        $pdo = $this->pdo();
+
+        $query =  $pdo->query("insert INTO item_servico(itemServico, unitario, quantidade, total, durabilidade, dias, lembrar, id_admin)".
+            "VALUES('$IitemServico', '$Iunitario', '$Iquantidade', '$Itotal', '$Idurabilidade', '$Idias', '$Ilembrar', '$IidAdmin')");
+        return $query;
+    }
+
     public function delServicos($id)
     {
         $pdo = $this->pdo();
@@ -118,6 +127,14 @@ class Model {
     {
         $pdo = $this->pdo();
         $query =  $pdo->query("select * from fornecedor_frota where idAdmin = $idAdmin");
+        $rows = $query->fetchAll(PDO::FETCH_OBJ);
+        return $rows;
+    }
+
+    public function itemServicoById($idAdmin)
+    {
+        $pdo = $this->pdo();
+        $query =  $pdo->query("select itemservico, unitario, quantidade, total, (select sum(total) from item_servico where id_admin = $idAdmin) as v_total  from item_servico where id_admin = $idAdmin");
         $rows = $query->fetchAll(PDO::FETCH_OBJ);
         return $rows;
     }

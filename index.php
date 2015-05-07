@@ -3,7 +3,6 @@ include "includes/header.php";
 
 ?>
 
-
 <div class="content" >
 
     <div id="conteudo" class="row-fluid" >
@@ -437,6 +436,7 @@ include "includes/modals.php";
         var idAdmin     = numeroModal.split("_").pop();
 
         selectFornecedores(idAdmin);
+
         if(id == "vEditServicosEdit_btn"){
             var checkid = $("#"+id).attr("checkid");
 
@@ -446,9 +446,10 @@ include "includes/modals.php";
             $(".addFornecedor").attr("data-fornecedoradd", idAdmin);
             //Inseri idAdmin no campo hidden do form modal
             $("#servicosId").attr('value', idAdmin);
+            $("#IidAdmin").attr('value', idAdmin);
 
             preencherModalEditarServicos(checkid)
-
+            preencheModalItemServicos(idAdmin);
             $("#"+idName+"_"+numeroModal).dialog({autoOpen: false,
                 modal: true,
                 width: 600,
@@ -470,7 +471,7 @@ include "includes/modals.php";
                                     $(".servicosSubModal").dialog("close");
                                     alert("Serviço alterado com sucesso!");
                                 }else{
-                                    alert("Nao foi possivel alterar o serviço!");
+                                    alert("Nao foi possivel alterar o servisso!");
                                 }
                             }
                         })
@@ -506,7 +507,7 @@ include "includes/modals.php";
                                     $(".servicosSubModal").dialog("close");
                                     alert("Serviço salvo com sucesso!");
                                 }else{
-                                    alert("Nao foi possivel salvar o serviço!");
+                                    alert("Nao foi possivel salvar o servisso!");
                                 }
                             }
                         })
@@ -604,6 +605,7 @@ include "includes/modals.php";
 
             }
         })
+
     }
 
     function addFornecedor(id)
@@ -629,8 +631,8 @@ include "includes/modals.php";
                             success: function(data) {
 
                                 if (data == 1) {
+                                    selectFornecedores(idAdmin);
                                     alert("Fornecedor salvo com sucesso!");
-                                    selectFornecedores(idAdmin)
                                     $(this).dialog("close");
                                 } else {
                                     alert("Preencha os campos obrigatórios!");
@@ -638,6 +640,7 @@ include "includes/modals.php";
                                 }
                             }
                         });
+
                     }
                 $( this ).dialog( "close" );
             },
@@ -652,6 +655,126 @@ include "includes/modals.php";
 
     }
 
+    function addItensServico(id)
+    {
+        $(".addItemServico").dialog({autoOpen: false,
+            modal: true,
+            width: "500px",
+            buttons: {
+                "Salvar": function() {
+
+                    var IitemServico = $("#IitemServico").val(),
+                        Iunitario = $("#Iunitario").val(),
+                        Iquantidade = $("#Iquantidade").val(),
+                        Itotal = $("#Itotal").val(),
+                        Idurabilidade = $("#Idurabilidade").val(),
+                        Idias = $("#Idias").val(),
+                        Ilembrar = $("#Ilembrar").val();
+
+                    if(IitemServico, Iunitario, Iquantidade, Itotal, Idurabilidade, Idias, Ilembrar == ""){
+                        alert("Preencha todos os campos!")
+                    }else{
+
+                        $.ajax({
+                            url: "includes/ajax/addItemServico.php",
+                            type: "post",
+                            data: $(".formulario_itemfornecedor").serialize(),
+                            success: function(data){
+                                alert(data)
+                            }
+
+                        })
+
+                    }
+
+
+
+                    //$( this ).dialog( "close" );
+                },
+                Cancelar: function() {
+
+                    $( this ).dialog( "close" );
+                }
+            }});
+
+        $(".addItemServico").dialog('open');
+
+    }
+
+    function preencheModalItemServicos(idAdmin)
+    {
+        //Criar session IdAd$.ajax({
+
+        //Preenche Modal com conteudo referente ao Id do Cliente
+        $.ajax({
+            url: "modulos/frota/functions/selectItemServico.php",
+            type: "post",
+            data: "idAdmin="+idAdmin,
+            dataType: "json",
+            success: function(data){
+
+               if(data.length != 0){
+                    $("#tbody_itemServicos tr").remove();
+                    for(var i=0;i<data.length;i++){
+                        var tds =
+                            '<tr>'+
+                            "<td><input type='checkbox' class='checklist' onclick='checklist(id)' id='"+data[i].id+"' style='position: relative;left: 20px'></td>"+
+                            '<td>'+data[i].itemservico+'</td>'+
+                            '<td>'+data[i].unitario+'</td>'+
+                            '<td>'+data[i].quantidade+'</td>'+
+                            '<td>'+data[i].total+'</td>'+
+                            '</tr>';
+                        $(tds).appendTo("#tbody_itemServicos");
+                        var total = data[i].v_total;
+                    }
+                   var v_total =
+                       '<tr >'+
+                       '<td colspan="3"></td>'+
+
+                       '<td>Total:</td>'+
+                       '<td>R$ '+total+'</td>'+
+                       '</tr>'
+
+                   $(v_total).appendTo("#tbody_itemServicos");
+                }else{
+                    $("#tbody_itemServicos tr").remove();
+                    var tds =
+                        '<tr>'+
+                        '<td>-</td>'+
+                        '<td>-</td>'+
+                        '<td>-</td>'+
+                        '<td>-</td>'+
+                        '<td>-</td>'+
+                        '<td>-</td>'+
+                        '<td>-</td>'+
+                        '</tr>';
+                    $(tds).appendTo("#tbody_itemServicos")
+                }
+            }
+        })
+
+    }
+
+    function addItem(id)
+    {
+        $(".addItem").dialog({autoOpen: false,
+            modal: true,
+            width: "500px",
+            buttons: {
+                "Salvar": function() {
+
+                   alert("addItem")
+                    $( this ).dialog( "close" );
+                },
+                Cancelar: function() {
+
+                    $( this ).dialog( "close" );
+                }
+            }});
+
+        $(".addItem").dialog('open');
+
+    }
     function selectFornecedores(idAdmin)
     {
         $("#fidAdmin").attr("value", idAdmin);
@@ -667,12 +790,19 @@ include "includes/modals.php";
 
                 for(var i=0; i<data.length;i++){
 
-                    var fornecedor =
-                        "<option>"+data[i].nome+"</option>";
+                    if(fname == data[i].nome){
+                        var fornecedor =
+                            "<option id='"+data[i].nome+"' selected >"+data[i].nome+"</option>";
+                    }else{
+                        var fornecedor =
+                            "<option id='"+data[i].nome+"'>"+data[i].nome+"</option>";
+                    }
+
                     $(fornecedor).appendTo("#sevicosFornecedor");
                 }
             }
         })
+
     }
     //função para checklist
     function checklist(id)
@@ -813,6 +943,37 @@ include "includes/modals.php";
         //$("#placa").click()
         $(".datePicker").datepicker({ dateFormat: 'yy-mm-dd' })
     })
+
+    $(function(){
+
+        $(".groupOfTexbox2").keypress(function(event) { return isNumber(event) });
+
+        $('.groupOfTexbox').number( true, 2 );
+
+        $("#Iquantidade").click(function(){
+            var valorUnitario = $("#Iunitario").val(),
+                quantidade = $(this).val(),
+                total = valorUnitario * quantidade;
+                $("#Itotal").val(total);
+        });
+        $("#Itotal").click(function(){
+            var valorUnitario = $("#Iunitario").val(),
+                quantidade = $("#Iquantidade").val(),
+                total = valorUnitario * quantidade;
+            $(this).val(total);
+        })
+    })
+    // THE SCRIPT THAT CHECKS IF THE KEY PRESSED IS A NUMERIC OR DECIMAL VALUE.
+    function isNumber(evt) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode
+
+        if (charCode != 45  && charCode != 08 && (charCode != 46 ||
+            $(this).val().indexOf('.') != -1) && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
 </script>
 
 </body>

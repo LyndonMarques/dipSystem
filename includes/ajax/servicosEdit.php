@@ -2,10 +2,11 @@
 
 include "../../modulos/frota/model/Model.php";
 
-function salvaServicos(){
+function editServicos(){
 
     $pdo = new Model();
 
+    $id                    = filter_var($_POST['id'], FILTER_SANITIZE_STRING);
     $servicosId            = filter_var($_POST['servicosId'], FILTER_SANITIZE_STRING);
     $sevicosFornecedor     = filter_var($_POST['sevicosFornecedor'], FILTER_SANITIZE_STRING);
     $servicosOs            = filter_var($_POST['servicosOs'], FILTER_SANITIZE_STRING);
@@ -15,8 +16,8 @@ function salvaServicos(){
     $servicosOdometro      = filter_var($_POST['servicosOdometro'], FILTER_SANITIZE_STRING);
     $servicosObs           = filter_var($_POST['servicosObs'], FILTER_SANITIZE_STRING);
 
-    $frota_servico         = $pdo->servicosAdd($servicosId,$sevicosFornecedor,$servicosTipoServi,$servicosData,
-                                               $servicosOs,$servicosOdometro,$servicosObs,$servicosCodIndentServ);
+    $frota_servico         = $pdo->editServicos($id,$servicosId,$sevicosFornecedor,$servicosTipoServi,$servicosData,
+        $servicosOs,$servicosOdometro,$servicosObs,$servicosCodIndentServ);
 
     if($frota_servico){
         return 1;
@@ -26,4 +27,4 @@ function salvaServicos(){
 
 }
 
-echo call_user_func('salvaServicos');
+echo call_user_func('editServicos');

@@ -2509,7 +2509,7 @@
                             <div class="col-md-12">
                                 <div class="btn-group" data-toggle="buttons-radio">
                                     <button id="vEditServicosAdd_btn"  onclick="openModalSub(id)" type="button" class="btn btn-default"><span class="icon-plus"></span> Adicionar</button>
-                                    <button id="vEditServicosEdit_btn" onclick="editModalSub(id, 'vEdit')" type="button" class="btn btn-default"><span class="icon-edit"></span> Editar</button>
+                                    <button id="vEditServicosEdit_btn" onclick="openModalSub(id)" type="button" class="btn btn-default"><span class="icon-edit"></span> Editar</button>
                                     <button id="vEditServicosDel_btn"  onclick="delModalSub(id, 'vEdit')" type="button" class="btn btn-default"><span class="icon-remove"></span> Desativar</button>
                                 </div>
                             </div>
@@ -3397,7 +3397,7 @@
 
 <!-- Suv Modal vEdit -->
 
-<div class="dialog-fluid servicosSubModal" id="vEditServicosAdd" style="display: none;" title="Serviços - Adicionar">
+<div class="dialog-fluid servicosSubModal" id="vEditServicosAdd" style="display: none;" title="Serviços - Formulário">
 
     <div class="row-fluid">
         <div class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
@@ -3422,7 +3422,7 @@
                             </div>
                             <div class="span1">
                                 <span class="top title"> &nbsp;</span>
-                                <div class="btn btn-small"><span class="icon-plus"></span></div>
+                                <div class="btn btn-small" onclick="addFornecedor()"><span class="icon-plus"></span></div>
                             </div>
                             <div class="span3">
                                 <span class="top title">Numéro OS:</span>
@@ -3508,5 +3508,195 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal ExcessoVelocidade-->
+<div class="dialog-fluid addFornecedor"  style="display: none;" title="Fornecedor">
+
+    <div class="row-fluid">
+
+
+        <div class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+            <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+                <li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="-1" aria-controls="tabs-1" aria-labelledby="ui-id-1" aria-selected="false"><a href="#tabs-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1">Fornecedor</a></li>
+                <li class="ui-state-default ui-corner-top" role="tab" tabindex="0" aria-controls="tabs-2" aria-labelledby="ui-id-2" aria-selected="true"><a href="#tabs-2" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Tipos de Fornecedor</a></li>
+                <li class="ui-state-default ui-corner-top" role="tab" tabindex="0" aria-controls="tabs-3" aria-labelledby="ui-id-3" aria-selected="true"><a href="#tabs-3" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3">Contatos</a></li>
+            </ul>
+
+            <div id="tabs-1" aria-labelledby="ui-id-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+
+                <form class="formulario_fornecedor" >
+
+                    <div class="row-form">
+                        <div class="span12">
+                            <span class="top title ">Fornecedor:*</span>
+                            <input class="label-warning" type="text" id="fname" name="fname" value="" required/>
+                        </div>
+
+                    </div>
+
+                    <div class="row-form">
+                        <div class="span4">
+                            <span class="top title">CPF / CNPJ:*</span>
+                            <input class="label-warning"  type="text" id="fcnpj" name="fcnpj" value="" required/>
+                        </div>
+
+                        <div class="span4">
+                            <span class="top title">Cód. Externo:</span>
+                            <input type="text" name="fcodExterno" value=""/>
+                        </div>
+
+                        <div class="span4">
+                            <span class="top title">Telefone:</span>
+                            <input type="text" name="ftelefone" value=""/>
+                        </div>
+                    </div>
+
+                    <div class="row-form">
+                        <div class="span6">
+                            <span class="top title">Endereço:</span>
+                            <input type="text" name="fendereco" value=""/>
+                        </div>
+
+                        <div class="span6">
+                            <span class="top title">Bairro:</span>
+                            <input type="text" name="fbairro" value=""/>
+                        </div>
+
+                    </div>
+
+                    <div class="row-form">
+                        <div class="span6">
+                            <span class="top title">Cidade:</span>
+                            <input type="text" name="fcidade" value=""/>
+                        </div>
+
+                        <div class="span6">
+                            <span class="top title">Uf:</span>
+                            <select name="fuf">
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraiba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Santa Catarina</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+
+
+
+                </form>
+
+            </div>
+
+            <div id="tabs-2" aria-labelledby="ui-id-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="true" aria-hidden="false" style="display: block;">
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="btn-group" data-toggle="buttons-radio">
+                            <button type="button" class="btn btn-default"><span class="icon-plus"></span> Adicionar</button>
+                            <button type="button" class="btn btn-default"><span class="icon-edit"></span> Editar</button>
+                            <button type="button" class="btn btn-default"><span class="icon-remove"></span> Desativar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-hover" cellpadding="0" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th width="100%">Tipo de Fornecedor</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>-</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="tabs-3" aria-labelledby="ui-id-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="true" aria-hidden="false" style="display: block;">
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="btn-group" data-toggle="buttons-radio">
+                            <button type="button" class="btn btn-default"><span class="icon-plus"></span> Adicionar</button>
+                            <button type="button" class="btn btn-default"><span class="icon-edit"></span> Editar</button>
+                            <button type="button" class="btn btn-default"><span class="icon-remove"></span> Desativar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-hover" cellpadding="0" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th width="20%">Id Fornecedor</th>
+                        <th width="20%">Nome</th>
+                        <th width="15%">Cargo</th>
+                        <th width="15%">Telefone</th>
+                        <th width="20%">Email</th>
+                        <th width="20%">Ativo</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+<!-- Modal ExcessoVelocidade-->
 </div>
 <!-- Suv Modal vEdit -->

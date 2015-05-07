@@ -8,7 +8,7 @@ function salvaServicos(){
 
     $servicosId            = filter_var($_POST['servicosId'], FILTER_SANITIZE_STRING);
     $sevicosFornecedor     = filter_var($_POST['sevicosFornecedor'], FILTER_SANITIZE_STRING);
-    $servicosOs            = filter_var($_POST['servicosOs'], FILTER_SANITIZE_STRING);
+    //$servicosOs            = filter_var($_POST['servicosOs'], FILTER_SANITIZE_STRING);
     $servicosTipoServi     = filter_var($_POST['servicosTipoServi'], FILTER_SANITIZE_STRING);
     $servicosData          = filter_var($_POST['servicosData'], FILTER_SANITIZE_STRING);
     $servicosCodIndentServ = filter_var($_POST['servicosCodIndentServ'], FILTER_SANITIZE_STRING);
@@ -16,7 +16,7 @@ function salvaServicos(){
     $servicosObs           = filter_var($_POST['servicosObs'], FILTER_SANITIZE_STRING);
 
     $frota_servico         = $pdo->servicosAdd($servicosId,$sevicosFornecedor,$servicosTipoServi,$servicosData,
-                                               $servicosOs,$servicosOdometro,$servicosObs,$servicosCodIndentServ);
+                                               $servicosOdometro,$servicosObs,$servicosCodIndentServ);
 
     if($frota_servico){
         return 1;

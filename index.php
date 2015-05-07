@@ -470,7 +470,7 @@ include "includes/modals.php";
                                     $(".servicosSubModal").dialog("close");
                                     alert("Serviço alterado com sucesso!");
                                 }else{
-                                    alert("Nao foi possivel alterar o servisso!");
+                                    alert("Nao foi possivel alterar o serviço!");
                                 }
                             }
                         })
@@ -506,7 +506,7 @@ include "includes/modals.php";
                                     $(".servicosSubModal").dialog("close");
                                     alert("Serviço salvo com sucesso!");
                                 }else{
-                                    alert("Nao foi possivel salvar o servisso!");
+                                    alert("Nao foi possivel salvar o serviço!");
                                 }
                             }
                         })
@@ -604,7 +604,6 @@ include "includes/modals.php";
 
             }
         })
-
     }
 
     function addFornecedor(id)

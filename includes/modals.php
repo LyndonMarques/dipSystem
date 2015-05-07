@@ -3425,7 +3425,7 @@
                             </div>
                             <div class="span3">
                                 <span class="top title">Numéro OS:</span>
-                                <input type="text" id="servicosOs" name="servicosOs" value=""/>
+                                <input type="text" id="servicosOs" name="servicosOs" readonly value="0"/>
                             </div>
 
                         </div>

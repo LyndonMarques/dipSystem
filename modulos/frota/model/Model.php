@@ -70,12 +70,27 @@ class Model {
         return $rows;
     }
 
-    public function servicosAdd($servicosId,$sevicosFornecedor,$servicosTipoServi,$servicosData,
-                                $servicosOs,$servicosOdometro,$servicosObs,$servicosCodIndentServ)
+    public function countOs()
     {
         $pdo = $this->pdo();
-    $query =  $pdo->query("insert INTO frota_servicos(fornecedor, tipo_servico, data, os, odometro, observacoes, id_admin, codIdentServ)".
-                          "VALUES('$sevicosFornecedor', '$servicosTipoServi', '$servicosData', '$servicosOs', '$servicosOdometro', '$servicosObs', '$servicosId', '$servicosCodIndentServ')");
+        $query =  $pdo->query("select count(os) as os from frota_servicos");
+        $rows = $query->fetchAll(PDO::FETCH_OBJ);
+        return $rows;
+
+    }
+
+    public function servicosAdd($servicosId,$sevicosFornecedor,$servicosTipoServi,$servicosData,
+                                $servicosOdometro,$servicosObs,$servicosCodIndentServ)
+    {
+        $pdo = $this->pdo();
+
+        $countServicosOs = $this->countOs();
+        foreach($countServicosOs as $row){
+            $servicosOs = $row->os;
+        }
+
+        $query =  $pdo->query("insert INTO frota_servicos(fornecedor, tipo_servico, data, os, odometro, observacoes, id_admin, codIdentServ)".
+            "VALUES('$sevicosFornecedor', '$servicosTipoServi', '$servicosData', '$servicosOs', '$servicosOdometro', '$servicosObs', '$servicosId', '$servicosCodIndentServ')");
         return $query;
     }
 
@@ -87,14 +102,14 @@ class Model {
     }
 
     public function editServicos($id,$servicosId,$sevicosFornecedor,$servicosTipoServi,$servicosData,
-                                $servicosOs,$servicosOdometro,$servicosObs,$servicosCodIndentServ)
+                                 $servicosOs,$servicosOdometro,$servicosObs,$servicosCodIndentServ)
     {
         $pdo = $this->pdo();
         $query =  $pdo->query(
-        "UPDATE frota_servicos SET ".
-        "fornecedor = '$sevicosFornecedor',tipo_servico = '$servicosTipoServi',DATA = '$servicosData',os = '$servicosOs',".
-        "odometro = '$servicosOdometro',observacoes = '$servicosObs',id_admin = '$servicosId',codIdentServ = '$servicosCodIndentServ' ".
-        "WHERE id = '$id' ");
+            "UPDATE frota_servicos SET ".
+            "fornecedor = '$sevicosFornecedor',tipo_servico = '$servicosTipoServi',DATA = '$servicosData',os = '$servicosOs',".
+            "odometro = '$servicosOdometro',observacoes = '$servicosObs',id_admin = '$servicosId',codIdentServ = '$servicosCodIndentServ' ".
+            "WHERE id = '$id' ");
 
         return $query;
     }
@@ -111,7 +126,7 @@ class Model {
     {
         $pdo = $this->pdo();
         $query =  $pdo->query("insert into fornecedor_frota(nome, cnpj, cod_externo, telefone, endereco, bairro, cidade, uf, idAdmin)".
-        "values('$fname', '$fcnpj', '$fcodExterno', '$ftelefone', '$fendereco', '$fbairro', '$fcidade', '$fuf', '$idAdmin') ");
+            "values('$fname', '$fcnpj', '$fcodExterno', '$ftelefone', '$fendereco', '$fbairro', '$fcidade', '$fuf', '$idAdmin') ");
         return $query;
     }
 

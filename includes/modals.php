@@ -2510,7 +2510,7 @@
                                 <div class="btn-group" data-toggle="buttons-radio">
                                     <button id="vEditServicosAdd_btn"  onclick="openModalSub(id)" type="button" class="btn btn-default"><span class="icon-plus"></span> Adicionar</button>
                                     <button id="vEditServicosEdit_btn" onclick="openModalSub(id)" type="button" class="btn btn-default"><span class="icon-edit"></span> Editar</button>
-                                    <button id="vEditServicosDel_btn"  onclick="delModalSub(id, 'vEdit')" type="button" class="btn btn-default"><span class="icon-remove"></span> Desativar</button>
+                                    <button id="vEditServicosDel_btn"  onclick="delModalSub(id, 'vEdit')" type="button" class="btn btn-default del_btn"><span class="icon-remove"></span> Desativar</button>
                                 </div>
                             </div>
                         </div>
@@ -3412,10 +3412,11 @@
                 <div class="row-fluid">
                     <form id="formServicosSubAdd" method="post" class="block-fluid formulario">
                         <input type="hidden" name="servicosId" id="servicosId" value="">
+                        <input type="hidden" name="idItem" id="idItem" value="">
                         <div class="row-form">
                             <div class="span8">
                                 <span class="top title">Fornecedor: *</span>
-                                <select name="sevicosFornecedor" id="sevicosFornecedor">
+                                <select class="fornecedorId" name="sevicosFornecedor" id="sevicosFornecedor">
 
                                 </select>
                             </div>
@@ -3478,7 +3479,7 @@
                                 <div class="btn-group" data-toggle="buttons-radio">
                                     <button id="vEditServicosAddEdit_btn" onclick="addItensServico(id)" type="button" class="btn btn-default"><span class="icon-plus"></span> Adicionar</button>
                                     <button type="button" class="btn btn-default"><span class="icon-edit"></span> Editar</button>
-                                    <button type="button" class="btn btn-default"><span class="icon-remove"></span> Desativar</button>
+                                    <button id="vEditServicosAddDel_btn" onclick="delItemServico(id, 'vEdit')" type="button" class="btn btn-default del_btn"><span class="icon-remove"></span> Desativar</button>
                                 </div>
                             </div>
                         </div>
@@ -3691,6 +3692,7 @@
         <form class="formulario_itemfornecedor" >
 
             <input type="hidden" name="IidAdmin" id="IidAdmin" value="">
+            <input type="hidden" name="IidServicoLista" id="IidServicoLista" value="">
 
             <div class="row-form">
                 <div class="span11">

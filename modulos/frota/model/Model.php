@@ -80,7 +80,7 @@ class Model {
     }
 
     public function servicosAdd($servicosId,$sevicosFornecedor,$servicosTipoServi,$servicosData,
-                                $servicosOdometro,$servicosObs,$servicosCodIndentServ)
+                                $servicosOdometro,$servicosObs,$servicosCodIndentServ,$idItiem)
     {
         $pdo = $this->pdo();
 
@@ -89,17 +89,20 @@ class Model {
             $servicosOs = $row->os;
         }
 
-        $query =  $pdo->query("insert INTO frota_servicos(fornecedor, tipo_servico, data, os, odometro, observacoes, id_admin, codIdentServ)".
-            "VALUES('$sevicosFornecedor', '$servicosTipoServi', '$servicosData', '$servicosOs', '$servicosOdometro', '$servicosObs', '$servicosId', '$servicosCodIndentServ')");
+        $query =  $pdo->query("insert INTO frota_servicos(fornecedor, tipo_servico, data, os, odometro, observacoes, id_admin, codIdentServ, id_fornecedor)".
+            "VALUES('$sevicosFornecedor', '$servicosTipoServi', '$servicosData', '$servicosOs', '$servicosOdometro', '$servicosObs', '$servicosId', '$servicosCodIndentServ', '$idItiem')");
+
         return $query;
     }
 
-    public function addItemServico($IitemServico,$Iunitario,$Iquantidade,$Itotal,$Idurabilidade,$Idias,$Ilembrar,$IidAdmin)
+    public function addItemServico($IitemServico,$Iunitario,$Iquantidade,$Itotal,$Idurabilidade,$Idias,$Ilembrar,$IidAdmin,$IidServicoLista)
     {
         $pdo = $this->pdo();
 
-        $query =  $pdo->query("insert INTO item_servico(itemServico, unitario, quantidade, total, durabilidade, dias, lembrar, id_admin)".
-            "VALUES('$IitemServico', '$Iunitario', '$Iquantidade', '$Itotal', '$Idurabilidade', '$Idias', '$Ilembrar', '$IidAdmin')");
+        $query =  $pdo->query("insert INTO item_servico(itemServico, unitario, quantidade, total, durabilidade, dias, lembrar, id_admin, id_fornecedor)".
+            "VALUES('$IitemServico', '$Iunitario', '$Iquantidade', '$Itotal', '$Idurabilidade', '$Idias', '$Ilembrar', '$IidAdmin', '$IidServicoLista')");
+
+        $pdo->query("UPDATE frota_servicos SET total = (select sum(total) from item_servico where id_admin = $IidAdmin) WHERE id = $IidServicoLista");
         return $query;
     }
 
@@ -107,6 +110,13 @@ class Model {
     {
         $pdo = $this->pdo();
         $query =  $pdo->query("DELETE FROM frota_servicos WHERE id = $id");
+        return $query;
+    }
+
+    public function delItemServicos($id)
+    {
+        $pdo = $this->pdo();
+        $query =  $pdo->query("DELETE FROM item_servico WHERE id = $id");
         return $query;
     }
 

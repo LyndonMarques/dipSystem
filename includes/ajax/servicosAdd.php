@@ -14,9 +14,10 @@ function salvaServicos(){
     $servicosCodIndentServ = filter_var($_POST['servicosCodIndentServ'], FILTER_SANITIZE_STRING);
     $servicosOdometro      = filter_var($_POST['servicosOdometro'], FILTER_SANITIZE_STRING);
     $servicosObs           = filter_var($_POST['servicosObs'], FILTER_SANITIZE_STRING);
+    $idItiem               = filter_var($_POST['idItem'], FILTER_SANITIZE_STRING);;
 
     $frota_servico         = $pdo->servicosAdd($servicosId,$sevicosFornecedor,$servicosTipoServi,$servicosData,
-                                               $servicosOdometro,$servicosObs,$servicosCodIndentServ);
+        $servicosOdometro,$servicosObs,$servicosCodIndentServ, $idItiem);
 
     if($frota_servico){
         return 1;

@@ -61,7 +61,7 @@ foreach($todos as $row):
             }
 
             //Função para carregar os dados na tabela do modal Vedit
-            preencheModal(selectId);
+            preencheModal(selectId, "tbody_servicos1");
 
             // Função para trocar o modal id que está no modal gerado automaticamente do select
             $(".ui-dialog-content").attr("id", modalId+"_"+selectId );
@@ -89,52 +89,6 @@ foreach($todos as $row):
         });
     });
 
-    function preencheModal(selectId)
-    {
-        //Criar session IdAd$.ajax({
-
-        //Preenche Modal com conteudo referente ao Id do Cliente
-        $.ajax({
-            url: "includes/ajax/vEditServicos.php",
-            type: "post",
-            data: "id_user="+selectId,
-            dataType: "json",
-            success: function(data){
-
-                if(data.length != 0){
-                    $("#tbody_servicos1 tr").remove();
-                    for(var i=0;i<data.length;i++){
-                        var tds =
-                            '<tr>'+
-                            "<td><input type='checkbox' class='checklist' onclick='checklist(id)' id='"+data[i].id+"' style='position: relative;left: 20px'></td>"+
-                            '<td>'+data[i].fornecedor+'</td>'+
-                            '<td>'+data[i].tipo_servico+'</td>'+
-                            '<td>'+data[i].data+'</td>'+
-                            '<td>'+data[i].os+'</td>'+
-                            '<td>'+data[i].odometro+'</td>'+
-                            '<td>'+data[i].total+'</td>'+
-                            '</tr>';
-                        $(tds).appendTo("#tbody_servicos1")
-                    }
-
-                }else{
-                    $("#tbody_servicos1 tr").remove();
-                    var tds =
-                        '<tr>'+
-                        '<td>-</td>'+
-                        '<td>-</td>'+
-                        '<td>-</td>'+
-                        '<td>-</td>'+
-                        '<td>-</td>'+
-                        '<td>-</td>'+
-                        '<td>-</td>'+
-                        '</tr>';
-                    $(tds).appendTo("#tbody_servicos1")
-                }
-
-            }
-        })
-    }
 
     function formFornecedorAdd()
     {

@@ -134,7 +134,7 @@ class Model {
     public function itemServicoById($idAdmin)
     {
         $pdo = $this->pdo();
-        $query =  $pdo->query("select itemservico, unitario, quantidade, total, (select sum(total) from item_servico where id_admin = $idAdmin) as v_total  from item_servico where id_admin = $idAdmin");
+        $query =  $pdo->query("select id, itemservico, unitario, quantidade, total, (select sum(total) from item_servico where id_admin = $idAdmin) as v_total  from item_servico where id_admin = $idAdmin");
         $rows = $query->fetchAll(PDO::FETCH_OBJ);
         return $rows;
     }

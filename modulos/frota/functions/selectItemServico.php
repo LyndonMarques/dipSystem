@@ -6,7 +6,12 @@ function returnItemServicos(){
 
     $pdo = new Model();
 
-    $idAdmin = $_POST['idAdmin'];
+    if(isset($_POST['idAdmin'])){
+        $idAdmin = $_POST['idAdmin'];
+    }else{
+        $idAdmin = $_POST['fidAdmin'];
+    }
+
     $selectFrota = $pdo->itemServicoById($idAdmin);
 
     echo json_encode($selectFrota);

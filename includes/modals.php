@@ -3403,7 +3403,7 @@
         <div class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
             <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
                 <li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="-1" aria-controls="tabs-1" aria-labelledby="ui-id-1" aria-selected="false"><a href="#tabs-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1">Serviços</a></li>
-                <li class="ui-state-default ui-corner-top" role="tab" tabindex="0" aria-controls="tabs-2" aria-labelledby="ui-id-2" aria-selected="true"><a href="#tabs-2" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Itens do Serviço</a></li>
+                <li class="ui-state-default ui-corner-top " id="activeLi" role="tab" tabindex="0" aria-controls="tabs-2" aria-labelledby="ui-id-2" aria-selected="true"><a href="#tabs-2" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Itens do Serviço</a></li>
 
             </ul>
 
@@ -3544,24 +3544,24 @@
 
                         <div class="span4">
                             <span class="top title">Cód. Externo:</span>
-                            <input type="text" name="fcodExterno" value=""/>
+                            <input type="text" name="fcodExterno" id="fcodExterno" value=""/>
                         </div>
 
                         <div class="span4">
                             <span class="top title">Telefone:</span>
-                            <input type="text" name="ftelefone" value=""/>
+                            <input type="text" name="ftelefone" id="ftelefone" value=""/>
                         </div>
                     </div>
 
                     <div class="row-form">
                         <div class="span6">
                             <span class="top title">Endereço:</span>
-                            <input type="text" name="fendereco" value=""/>
+                            <input type="text" name="fendereco" id="fendereco" value=""/>
                         </div>
 
                         <div class="span6">
                             <span class="top title">Bairro:</span>
-                            <input type="text" name="fbairro" value=""/>
+                            <input type="text" name="fbairro" id="fbairro" value=""/>
                         </div>
 
                     </div>
@@ -3569,12 +3569,12 @@
                     <div class="row-form">
                         <div class="span6">
                             <span class="top title">Cidade:</span>
-                            <input type="text" name="fcidade" value=""/>
+                            <input type="text" name="fcidade" id="fcidade" value=""/>
                         </div>
 
                         <div class="span6">
                             <span class="top title">Uf:</span>
-                            <select name="fuf">
+                            <select name="fuf" id="fuf">
                                 <option value="AC">Acre</option>
                                 <option value="AL">Alagoas</option>
                                 <option value="AM">Amazonas</option>

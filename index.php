@@ -436,6 +436,7 @@ include "includes/modals.php";
         var idAdmin     = numeroModal.split("_").pop();
 
         selectFornecedores(idAdmin);
+        selectTipoServicos(idAdmin)
 
         if(id == "vEditServicosEdit_btn"){
             var checkid = $("#"+id).attr("checkid");
@@ -448,7 +449,7 @@ include "includes/modals.php";
             $("#servicosId").attr('value', idAdmin);
             $("#IidAdmin").attr('value', idAdmin);
 
-            preencherModalEditarServicos(checkid)
+            preencherModalEditarServicos(checkid);
             preencheModalItemServicos(idAdmin);
             $("#"+idName+"_"+numeroModal).dialog({autoOpen: false,
                 modal: true,
@@ -467,9 +468,11 @@ include "includes/modals.php";
 
                                 if(data == 1){
                                     resetar();
+
                                     preencheModal(idAdmin)
                                     $(".servicosSubModal").dialog("close");
                                     alert("Serviço alterado com sucesso!");
+                                    resetarModalItemServicos()
                                 }else{
                                     alert("Nao foi possivel alterar o servisso!");
                                 }
@@ -477,18 +480,24 @@ include "includes/modals.php";
                         })
                     },
                     Cancelar: function() {
+                        resetarModalItemServicos();
+                        resetar();
                         $("#"+id).removeClass('active');
                         $( this ).dialog( "close" );
                     }
                 }});
 
         }else{
+
+            $("#servicosId").attr('value', "");
+            $("#IidAdmin").attr('value', "");
+
             // Função para trocar o modal id que está no modal gerado automaticamente do select
             $(".servicosSubModal").attr("id", idName+"_"+numeroModal)
 
             $("#servicosId").attr('value', idAdmin);
 
-            $(".addFornecedor").attr("data-fornecedoradd", idAdmin)
+            $(".addFornecedor").attr("data-fornecedoradd", idAdmin);
 
             $("#"+idName+"_"+numeroModal).dialog({autoOpen: false,
                 modal: true,
@@ -513,6 +522,7 @@ include "includes/modals.php";
                         })
                     },
                     Cancelar: function() {
+                        resetar();
                         $("#"+id).removeClass('active');
                         $( this ).dialog( "close" );
                     }
@@ -537,9 +547,33 @@ include "includes/modals.php";
 
     }
 
+    function  resetarFormItemfornecedor()
+    {
+        $("#IitemServico").val("");
+        $("#Iunitario").val("");
+        $("#Iquantidade").val("");
+        $("#Itotal").val("");
+        $("#Idurabilidade").val("");
+        $("#Idias").val("");
+        $("#Ilembrar").val("");
+    }
+
+    function resetarModalItemServicos()
+    {
+        $("#tbody_itemServicos tr").remove();
+        var tds =
+            '<tr>'+
+            '<td>-</td>'+
+            '<td>-</td>'+
+            '<td>-</td>'+
+            '<td>-</td>'+
+            '<td>-</td>'+
+            '</tr>';
+        $(tds).appendTo("#tbody_itemServicos")
+    }
+
     function preencheModal(selectId, tipo)
     {
-        //Criar session IdAd$.ajax({
 
         //Preenche Modal com conteudo referente ao Id do Cliente
         $.ajax({
@@ -610,6 +644,7 @@ include "includes/modals.php";
 
     function addFornecedor(id)
     {
+        removeConteudoItensServico();
         $(".addFornecedor").dialog({autoOpen: false,
             modal: true,
             width: "500px",
@@ -631,8 +666,11 @@ include "includes/modals.php";
                             success: function(data) {
 
                                 if (data == 1) {
+                                    alert(idAdmin)
                                     selectFornecedores(idAdmin);
+                                    selectTipoServicos(idAdmin)
                                     alert("Fornecedor salvo com sucesso!");
+
                                     $(this).dialog("close");
                                 } else {
                                     alert("Preencha os campos obrigatórios!");
@@ -657,6 +695,13 @@ include "includes/modals.php";
 
     function addItensServico(id)
     {
+        var IidAdmin = $("#IidAdmin").val();
+
+        if( IidAdmin == ""){
+            alert("Para adcionar um novo Item é necessário salvar o Serviço!");
+            return false;
+        }
+
         $(".addItemServico").dialog({autoOpen: false,
             modal: true,
             width: "500px",
@@ -680,23 +725,21 @@ include "includes/modals.php";
                             type: "post",
                             data: $(".formulario_itemfornecedor").serialize(),
                             success: function(data){
-                                alert(data)
+                                preencheModalItemServicos(IidAdmin);
+                                alert("Item de serviço adicionado com sucesso!");
+                                resetarFormItemfornecedor();
                             }
-
                         })
-
                     }
 
-
-
-                    //$( this ).dialog( "close" );
+                    $( this ).dialog( "close" );
                 },
                 Cancelar: function() {
-
+                    resetarFormItemfornecedor();
                     $( this ).dialog( "close" );
                 }
             }});
-
+        removeConteudoItensServico();
         $(".addItemServico").dialog('open');
 
     }
@@ -718,7 +761,7 @@ include "includes/modals.php";
                     for(var i=0;i<data.length;i++){
                         var tds =
                             '<tr>'+
-                            "<td><input type='checkbox' class='checklist' onclick='checklist(id)' id='"+data[i].id+"' style='position: relative;left: 20px'></td>"+
+                            "<td><input type='checkbox' class='checklist' onclick='checklist("+data[i].id+")' id='"+data[i].id+"' style='position: relative;left: 20px'></td>"+
                             '<td>'+data[i].itemservico+'</td>'+
                             '<td>'+data[i].unitario+'</td>'+
                             '<td>'+data[i].quantidade+'</td>'+
@@ -731,7 +774,7 @@ include "includes/modals.php";
                        '<tr >'+
                        '<td colspan="3"></td>'+
 
-                       '<td>Total:</td>'+
+                       '<td><b>Total:</b></td>'+
                        '<td>R$ '+total+'</td>'+
                        '</tr>'
 
@@ -763,7 +806,14 @@ include "includes/modals.php";
             buttons: {
                 "Salvar": function() {
 
-                   alert("addItem")
+                    $.ajax({
+                        url: "includes/ajax/addItem.php",
+                        type: "post",
+                        data: $(".formulario_item").serialize(),
+                        success: function(data){
+                            alert(data)
+                        }
+                    })
                     $( this ).dialog( "close" );
                 },
                 Cancelar: function() {
@@ -775,8 +825,10 @@ include "includes/modals.php";
         $(".addItem").dialog('open');
 
     }
+
     function selectFornecedores(idAdmin)
     {
+
         $("#fidAdmin").attr("value", idAdmin);
         var fname = $("#fname").val();
         $.ajax({
@@ -799,6 +851,37 @@ include "includes/modals.php";
                     }
 
                     $(fornecedor).appendTo("#sevicosFornecedor");
+                }
+            }
+        })
+
+    }
+
+    function selectTipoServicos(idAdmin)
+    {
+
+        $("#fidAdmin").attr("value", idAdmin);
+        var fname = $("#fname").val();
+        $.ajax({
+            url: "modulos/frota/functions/selectItemServico.php",
+            type: "post",
+            data: "fidAdmin="+idAdmin,
+            dataType: "json",
+            success: function(data){
+
+                $("#servicosTipoServi option").remove();
+
+                for(var i=0; i<data.length;i++){
+
+                    if(fname == data[i].itemservico){
+                        var fornecedor =
+                            "<option id='"+data[i].itemservico+"' selected >"+data[i].itemservico+"</option>";
+                    }else{
+                        var fornecedor =
+                            "<option id='"+data[i].itemservico+"'>"+data[i].itemservico+"</option>";
+                    }
+
+                    $(fornecedor).appendTo("#servicosTipoServi");
                 }
             }
         })
@@ -880,6 +963,18 @@ include "includes/modals.php";
         } else {
             txt = "Não";
         }
+    }
+
+    function removeConteudoItensServico()
+    {
+        $("#fname").val("");
+        $("#fcnpj").val("");
+        $("#fcodExterno").val("");
+        $("#ftelefone").val("");
+        $("#fendereco").val("");
+        $("#fbairro").val("");
+        $("#fcidade").val("");
+        $("#fuf").val("");
     }
 
     $("#logout").click(function(){
